@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <title>CloudSim</title>
+        <link href="./bootstrap.min.css" rel="stylesheet" />
+        <script src="./vue.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+            <div class="row p-3">
+                <div class="alert alert-success col-md-12 alert-dismissible fade show" role="alert" v-if="showSuccess">
+                    <span>{{ successMessage}}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hideSuccess">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-danger col-md-12 alert-dismissible fade show" role="alert" v-if="showError">
+                    <span>{{ errorMessage}}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hideError">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-light col-md-12 alert-dismissible fade show" role="alert" v-if="showDetails">
+                        <table class="table table-responsive">
+                            <thead>
+                                <th>VM ID</th>
+                                <th>VM Memory</th>
+                                <th>VM CPU</th>
+                                <th>VM Elapsed Run Time (ms)</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="detail in details">
+                                    <td>{{detail.vmId}}</td>
+                                    <td>{{detail.ram}}</td>
+                                    <td>{{detail.vmCpuCore}}</td>
+                                    <td>{{detail.elapsedTime}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hideShowDetails">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            </div>
+            <div class="row p-3">
+                    <div class="col-md-12">
+                            <span class="d-block p-2 bg-dark text-white">Host Configuration</span>
+                    </div>
+                <div class="col-md-12">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ram</th>
+                                <th>CPU</th>
+                                <th>Storage</th>
+                                <th>Bandwidth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="number" min="1000" step="1000" placeholder="Memory" v-model="ram" />
+                                </td>
+                                <td>
+                                    <input type="number" min="1" placeholder="Cpu Core" v-model="hostCpu" />
+                                </td>
+                                <td>
+                                    <input type="number" min="1000" step="1000" placeholder="Host Storage" v-model="storage" />
+                                </td>
+                                <td>
+                                    <input type="number" placeholder="Bandwidth" v-model="bandwidth" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+            </div> <!-- End Row-->
+
+            <div class="row p-3">
+                <div class="col-md-12">
+                        <span class="d-block p-2 bg-dark text-white">VM Configuration</span>
+                </div>
+                <div class="col-md-12">
+                        <table>
+                                <thead>
+                                    <tr>
+                                        <th>VM Ram</th>
+                                        <th>VM CPU</th>
+                                        <th>VM Storage</th>
+                                        <th>VM Bandwidth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(vm, index) in vms">
+                                        <td>
+                                            <input type="number" min="1000" step="1000" placeholder="Memory" v-model="vm.ram" />
+                                        </td>
+                                        <td>
+                                            <input type="number" min="1" placeholder="Cpu Core" v-model="vm.cpuCore" />
+                                        </td>
+                                        <td>
+                                            <input type="number" min="1000" step="1000" placeholder="Host Storage" v-model="vm.size" />
+                                        </td>
+                                        <td>
+                                            <input type="number" min="1000" step="1000" placeholder="Bandwidth" v-model="vm.bandwidth" />
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm" @click="deleteRecord(index)" v-if="index > 0">
+                                                    <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                </div>
+            </div> <!-- End Row-->
+            
+            <div class="row">
+                <div class="col-md-6">
+                        <button @click="addMoreVm" class="btn btn-primary btn-sm">Add More VM</button>
+                </div>
+                <div class="col-md-6">
+                        <button v-on:click="startSimulation" class="btn btn-success btn-sm">Start Simulation</button>
+                </div>
+            </div>
+                
+        </div>
+        <script src="app.js"></script>
+        <script src="./jquery.min.js"></script>
+        <script src="./bootstrap.min.js"></script>
+    </body>
+</html>
