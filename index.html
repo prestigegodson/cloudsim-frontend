@@ -89,6 +89,7 @@
                                         <th>VM CPU</th>
                                         <th>VM Storage</th>
                                         <th>VM Bandwidth</th>
+                                        <th>VM Work Load</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -104,6 +105,9 @@
                                         </td>
                                         <td>
                                             <input type="number" min="1000" step="1000" placeholder="Bandwidth" v-model="vm.bandwidth" />
+                                        </td>
+                                        <td>
+                                            <input type="number" min="1000" step="1000" placeholder="Work Load" v-model="vm.workLoad" />
                                         </td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="deleteRecord(index)" v-if="index > 0">

@@ -16,7 +16,8 @@ var vue = new Vue({
                 ram: '1000',
                 cpuCore: '1',
                 size: '2000',
-                bandwidth: '1000'
+                bandwidth: '1000',
+                workLoad: '1000'
             }
         ]
     },
@@ -27,7 +28,8 @@ var vue = new Vue({
                 ram: '1000',
                 cpuCore: '1',
                 size: '2000',
-                bandwidth: '1000'
+                bandwidth: '1000',
+                workLoad: '1000'
             });
         },
 
