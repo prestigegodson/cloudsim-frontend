@@ -11,19 +11,17 @@ var vue = new Vue({
         hostCpu: '8',
         storage: '100000',
         bandwidth: '10000',
-        vms: [
-            {
-                ram: '1000',
-                cpuCore: '1',
-                size: '2000',
-                bandwidth: '1000',
-                workLoad: '1000'
-            }
-        ]
+        vms: [{
+            ram: '1000',
+            cpuCore: '1',
+            size: '2000',
+            bandwidth: '1000',
+            workLoad: '1000'
+        }]
     },
     methods: {
 
-        addMoreVm(e){
+        addMoreVm(e) {
             this.vms.push({
                 ram: '1000',
                 cpuCore: '1',
@@ -33,24 +31,24 @@ var vue = new Vue({
             });
         },
 
-        deleteRecord(index){
-          console.log(`About to delete record in index ${index}`);
-          this.vms.splice(index, 1);
+        deleteRecord(index) {
+            console.log(`About to delete record in index ${index}`);
+            this.vms.splice(index, 1);
         },
 
-        hideSuccess(){
+        hideSuccess() {
             this.showSuccess = false;
         },
 
-        hideError(){
+        hideError() {
             this.showError = false;
         },
 
-        hideShowDetails(){
+        hideShowDetails() {
             this.showDetails = false;
         },
 
-        startSimulation(e){
+        startSimulation(e) {
             this.showSuccess = false;
             this.showError = false;
             this.showDetails = false;
@@ -67,35 +65,35 @@ var vue = new Vue({
                 vmList: this.vms
             };
 
-            var httpHeaders = { 'Content-Type' : 'application/json', 'Accept-Charset' : 'utf-8', 'X-My-Custom-Header' : 'Godson' };
+            var httpHeaders = { 'Content-Type': 'application/json', 'Accept-Charset': 'utf-8', 'X-My-Custom-Header': 'Godson' };
             var myHeaders = new Headers(httpHeaders);
 
-            fetch(url,{
-                method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify(requestBody)
-            })
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                if(parseInt(data.createdVm) > 0){
-                    this.showSuccess = true;
-                    this.successMessage = `${data.createdVm} VM created successfully`;
-                }
+            fetch(url, {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: JSON.stringify(requestBody)
+                })
+                .then(res => {
+                    return res.json()
+                })
+                .then(data => {
+                    if (parseInt(data.createdVm) > 0) {
+                        this.showSuccess = true;
+                        this.successMessage = `${data.createdVm} VM created successfully`;
+                    }
 
-                if(parseInt(data.failedVm) > 0){
-                    this.showError = true;
-                    this.errorMessage = `${data.failedVm} VM failed`;
-                }
-                this.details = data.details;
-                this.showDetails = true;
-                
-                console.log('Response : ' + JSON.stringify(data))
-            }).catch(error => {
-                console.error(error)
-            })
-            
+                    if (parseInt(data.failedVm) > 0) {
+                        this.showError = true;
+                        this.errorMessage = `${data.failedVm} VM failed. your Provisioning request has failed please contact support by logging a ticket and we will resolve issue within the SLA period`;
+                    }
+                    this.details = data.details;
+                    this.showDetails = true;
+
+                    console.log('Response : ' + JSON.stringify(data))
+                }).catch(error => {
+                    console.error(error)
+                })
+
         }
     }
 })
